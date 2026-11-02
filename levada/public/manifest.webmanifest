@@ -1,0 +1,17 @@
+{
+  "name": "Levada — pausas ativas para estudar",
+  "short_name": "Levada",
+  "description": "Temporizador de estudo com pausas ativas de 2 minutos. Cada pausa faz a tua equipa avançar 100 m numa levada da Madeira.",
+  "lang": "pt-PT",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#F4F2EB",
+  "theme_color": "#2E6A44",
+  "icons": [
+    { "src": "/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml" }
+  ]
+}
