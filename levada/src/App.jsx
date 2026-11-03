@@ -38,6 +38,10 @@ export default function App() {
       if (t?.endsAt || t?.paused) { go('session'); return; }
       go('home');
     } catch (e) {
+      // Sessão de um utilizador que já não existe: limpa e recomeça
+      if (/profiles_id_fkey|perfil inexistente|sem sessão/.test(e.message || '')) {
+        await api.resetLocal(); go('welcome'); return;
+      }
       setError(e.message || 'Erro a carregar.');
       setRoute('error');
     }
