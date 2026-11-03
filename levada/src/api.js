@@ -19,9 +19,21 @@ async function rpc(fn, args) {
 }
 
 export const api = {
+  // Devolve a sessão guardada, mas só se o utilizador ainda existir no servidor
+  // (ex.: foi apagado). Sem internet, mantém a sessão.
   async session() {
     const { data } = await supabase.auth.getSession();
+    if (!data.session) return null;
+    const { error } = await supabase.auth.getUser();
+    if (error && error.status && error.status >= 400 && error.status < 500) {
+      await api.resetLocal();
+      return null;
+    }
     return data.session;
+  },
+  async resetLocal() {
+    await supabase.auth.signOut({ scope: 'local' }).catch(() => {});
+    try { localStorage.removeItem('levada-auth'); localStorage.removeItem('levada-timer'); } catch { /* */ }
   },
   async signIn() {
     const existing = await api.session();
