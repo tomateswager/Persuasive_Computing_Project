@@ -139,8 +139,12 @@ export function Prompt({ go, profile, params }) {
   }
   useEffect(() => { if (left <= 0) begin(true); }, [left]); // eslint-disable-line
 
+  // Regra fixa (pré-registada): com menos de 10 pausas não mostramos o número, porque um valor baixo
+  // pode ter o efeito contrário. Daí em diante, total desde o lançamento até haver >= 100 na semana.
   const socialText = social
-    ? social.scope === 'week'
+    ? social.count < 10
+      ? 'Estudantes como tu estão a começar a fazer pausas ativas na Levada.'
+      : social.scope === 'week'
       ? `Estudantes como tu já fizeram ${social.count} pausas esta semana.`
       : `Estudantes como tu já fizeram ${social.count} ${social.count === 1 ? 'pausa' : 'pausas'} na Levada.`
     : null;
